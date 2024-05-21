@@ -6,5 +6,8 @@
     <color name="header">#2D2837</color>
     <color name="active">#FFFFFFFF</color>
     <color name="inactive">#B1ACAC</color>
+    <color name="red">#DB4C4C</color>
+    <color name="yellow">#FCFF67</color>
+    <color name="transparent">#004C8B3C</color>
 
 </resources>

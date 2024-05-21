@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/habitCardContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/habit"
+    android:padding="8dp"
+    android:orientation="horizontal"
+
+    >
+
+
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:backgroundTint="@color/transparent"
+        android:padding="0dp"
+        android:text="+"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/habitName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="10dp"
+        android:text="Drink Water"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/clickCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/buttonMinus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:backgroundTint="@color/transparent"
+        android:padding="0dp"
+        android:text="-"
+        android:textSize="25sp" />
+
+</LinearLayout>
+
