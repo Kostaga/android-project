@@ -11,4 +11,8 @@
     <string name="coins">Coins:</string>
     <string name="currentCoins">%d</string>
     <string name="habbits">Habbits</string>
+    <string name="title_activity_add">Add</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
