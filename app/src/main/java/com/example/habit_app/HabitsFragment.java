@@ -85,6 +85,13 @@ public class HabitsFragment extends Fragment {
             Button buttonMinus = habitCard.findViewById(R.id.buttonMinus);
             TextView clickCounter = habitCard.findViewById(R.id.clickCounter);
 
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(0, 0, 0, 25); // Add margin bottom
+            habitCard.setLayoutParams(params);
+
             // Initialize click counter
             int[] clickCount = {0}; // Initialize an array to store the click count
 
