@@ -18,34 +18,53 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    private HabitsFragment habitsFragment;
+    private AddFragment addFragment;
+    private InventoryFragment inventoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HabitsFragment());
 
+        // Αρχικοποίηση των Fragments
+        habitsFragment = new HabitsFragment();
+        addFragment = new AddFragment();
+        inventoryFragment = new InventoryFragment();
+
+        // Προβολή αρχικού Fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, habitsFragment, "HabitsFragment").commit();
+
+        // Καθορισμός ακροατή για τις επιλογές του Bottom Navigation Bar
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.habbit) {
-                replaceFragment(new HabitsFragment());
-            } else if (item.getItemId() == R.id.addHabbit) {
-                replaceFragment(new AddFragment());
-            } else if (item.getItemId() == R.id.inventory) {
-                replaceFragment(new InventoryFragment());
+            Fragment selectedFragment = null;
+            String tag = null;
+            int itemId = item.getItemId();
+            if (itemId == R.id.habbit) {
+                selectedFragment = habitsFragment;
+                tag = "HabitsFragment";
+            } else if (itemId == R.id.addHabbit) {
+                selectedFragment = addFragment;
+                tag = "AddFragment";
+            } else if (itemId == R.id.inventory) {
+                selectedFragment = inventoryFragment;
+                tag = "InventoryFragment";
             }
-
+            // Εμφάνιση του επιλεγμένου Fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, selectedFragment, tag).addToBackStack(null).commit();
             return true;
         });
     }
 
-    private void replaceFragment(Fragment fragment)
-    {
+    private void replaceFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment, tag); // Προσθήκη του τρίτου ορίσματος tag
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
     // Μέθοδος για το κλείσιμο της εφαρμογής
     public void exitApp(View view) {

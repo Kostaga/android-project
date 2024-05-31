@@ -10,11 +10,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +38,22 @@ public class HabitsFragment extends Fragment {
     private int maximumXp = 100;  // Maximum XP value
     private int level = 1;           // Current level value
     private int coins = 0;           // Current coins value
+
+    private List<String> habitList = new ArrayList<>();
+
+    private static final String KEY_HABITS_LIST = "habitList";
+    private static final String KEY_LEVEL = "level";
+    private static final String KEY_COINS = "coins";
+
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        // Αποθήκευση της κατάστασης του fragment σε ένα Bundle
+//        outState.putStringArrayList(KEY_HABITS_LIST, new ArrayList<>(habitList));
+//        outState.putInt(KEY_LEVEL, level);
+//        outState.putInt(KEY_COINS, coins);
+//        // Μπορείτε να προσθέσετε άλλα δεδομένα που θέλετε να διατηρήσετε εδώ
+//    }
 
     @Nullable
     @Override
@@ -74,6 +94,7 @@ public class HabitsFragment extends Fragment {
     }
 
     private void createHabitCards(List<String> habitList) {
+        habitContainer.removeAllViews();
         for (String habit : habitList) {
             View habitCard = getLayoutInflater().inflate(R.layout.habit, habitContainer, false);
 
@@ -136,6 +157,7 @@ public class HabitsFragment extends Fragment {
             habitContainer.addView(habitCard);
         }
     }
+
 
     private void setLevelText(int level) {
         String levelString = getString(R.string.Level, level);
@@ -232,5 +254,12 @@ public class HabitsFragment extends Fragment {
         currentHp = maximumHp;
         // Update the progress
         updateProgress(progressBar, progressText, currentHp, maximumHp);
+    }
+
+    public void addHabit(String habitname) {
+        //TODO: Να φτιάξω το addHabit
+        Toast.makeText(getActivity(), "Habit is: " + habitname, Toast.LENGTH_SHORT).show();
+        habitList.add(habitname);
+        createHabitCards(habitList);
     }
 }
