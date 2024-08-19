@@ -2,72 +2,45 @@ package com.example.habit_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
-import com.example.habit_app.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
-    private HabitsFragment habitsFragment;
-    private AddFragment addFragment;
-    private InventoryFragment inventoryFragment;
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
-        // Αρχικοποίηση των Fragments
-        habitsFragment = new HabitsFragment();
-        addFragment = new AddFragment();
-        inventoryFragment = new InventoryFragment();
-
-        // Προβολή αρχικού Fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, habitsFragment, "HabitsFragment").commit();
-
-        // Καθορισμός ακροατή για τις επιλογές του Bottom Navigation Bar
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            String tag = null;
-            int itemId = item.getItemId();
-            if (itemId == R.id.habbit) {
-                selectedFragment = habitsFragment;
-                tag = "HabitsFragment";
-            } else if (itemId == R.id.addHabbit) {
-                selectedFragment = addFragment;
-                tag = "AddFragment";
-            } else if (itemId == R.id.inventory) {
-                selectedFragment = inventoryFragment;
-                tag = "InventoryFragment";
-            }
-            // Εμφάνιση του επιλεγμένου Fragment
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, selectedFragment, tag).addToBackStack(null).commit();
-            return true;
-        });
+        // Set up the navigation controller and configuration
+        setupNavigation();
     }
 
-    private void replaceFragment(Fragment fragment, String tag) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, tag); // Προσθήκη του τρίτου ορίσματος tag
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    private void setupNavigation() {
+        // Get the NavHostFragment and NavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.navHostFragment);
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+        } else {
+            throw new IllegalStateException("NavHostFragment not found.");
+        }
+
+//        // Set up the ActionBar with NavController
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 
-
-    // Μέθοδος για το κλείσιμο της εφαρμογής
-    public void exitApp(View view) {
-        finish();
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Handle the up button in the action bar
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 }

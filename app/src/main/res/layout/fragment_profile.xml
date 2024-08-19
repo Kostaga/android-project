@@ -171,39 +171,41 @@
         app:layout_constraintTop_toBottomOf="@+id/user_level" />
 
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <!--    <ScrollView-->
+<!--        android:id="@+id/scrollView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/habbit"
-        app:layout_constraintVertical_bias="0.145">
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHeight_percent="0.4"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/habbit"-->
+<!--        app:layout_constraintVertical_bias="0.145">-->
 
-        <!-- Container for dynamic habit cards -->
-        <LinearLayout
-            android:id="@+id/habitContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/habbit"
-            app:layout_constraintVertical_bias="0.102">
+<!--        &lt;!&ndash; Container for dynamic habit cards &ndash;&gt;-->
+<!--        &lt;!&ndash;        <LinearLayout&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:id="@+id/habitContainer"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_marginStart="25dp"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_marginEnd="25dp"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:orientation="vertical"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintHorizontal_bias="0.0"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/habbit"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintVertical_bias="0.102">&ndash;&gt;-->
 
-            <!-- Other views like profile picture, progress bars, etc. -->
+<!--        &lt;!&ndash;            &lt;!&ndash; Other views like profile picture, progress bars, etc. &ndash;&gt;&ndash;&gt;-->
 
-        </LinearLayout>
+<!--        &lt;!&ndash;        </LinearLayout>&ndash;&gt;-->
 
-    </ScrollView>
+<!--    </ScrollView>-->
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
