@@ -2,18 +2,11 @@ package com.example.habit_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.habit_app.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,30 +17,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HabitsFragment());
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.habbit) {
-                replaceFragment(new HabitsFragment());
-            } else if (item.getItemId() == R.id.addHabbit) {
-                replaceFragment(new AddFragment());
-            } else if (item.getItemId() == R.id.inventory) {
-                replaceFragment(new InventoryFragment());
-            }
+        // Set default screen
+        startActivity(new Intent(MainActivity.this, Avatar.class));
 
-            return true;
-        });
+//        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+//            if (item.getItemId() == R.id.habbit) {
+//                startActivity(new Intent(MainActivity.this, HabitsActivity.class));
+//            } else if (item.getItemId() == R.id.addHabbit) {
+//                startActivity(new Intent(MainActivity.this, AddHabitActivity.class));
+//            } else if (item.getItemId() == R.id.inventory) {
+//                startActivity(new Intent(MainActivity.this, InventoryActivity.class));
+//            }
+//
+//            return true;
+//        });
     }
 
-    private void replaceFragment(Fragment fragment)
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
-
-    // Μέθοδος για το κλείσιμο της εφαρμογής
+    // Method to close the app
     public void exitApp(View view) {
         finish();
     }
