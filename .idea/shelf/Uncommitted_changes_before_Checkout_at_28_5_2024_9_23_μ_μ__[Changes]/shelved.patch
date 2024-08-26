@@ -1,0 +1,130 @@
+Index: app/src/main/java/com/example/habit_app/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.habit_app;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.habit_app.databinding.ActivityMainBinding;\r\n\r\npublic class MainActivity extends AppCompatActivity implements AddFragment.AddHabitListener {\r\n\r\n    private ActivityMainBinding binding;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        binding = ActivityMainBinding.inflate(getLayoutInflater());\r\n        View view = binding.getRoot();\r\n        setContentView(view);\r\n\r\n        // Ορίστε το listener για την προσθήκη του AddFragment\r\n        binding.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {\r\n            if (item.getItemId() == R.id.habbit) {\r\n                replaceFragment(new Habits());\r\n                return true;\r\n            } else if (item.getItemId() == R.id.addHabbit) {\r\n                replaceFragment(new AddFragment());\r\n                return true;\r\n            } else if (item.getItemId() == R.id.inventory) {\r\n                // Εμφανίστε το Inventory Fragment\r\n                // replaceFragment(new InventoryFragment());\r\n                return true;\r\n            }\r\n            return false;\r\n        });\r\n\r\n        // Εμφανίστε αρχικά το Habits Fragment\r\n        replaceFragment(new Habits());\r\n    }\r\n\r\n    // Μέθοδος για την αντικατάσταση του fragment\r\n    private void replaceFragment(Fragment fragment) {\r\n        getSupportFragmentManager().beginTransaction()\r\n                .replace(R.id.frame_layout, fragment)\r\n                .commit();\r\n    }\r\n\r\n\r\n    // Μέθοδος που καλείται όταν πατάτε το κουμπί \"Exit\" για να κλείσετε την εφαρμογή\r\n    public void exitApp(View view) {\r\n        finish(); // Τερματίζει τη δραστηριότητα, κλείνοντας έτσι την εφαρμογή\r\n    }\r\n\r\n    @Override\r\n    public void onAddHabit(String habitName) {\r\n        // Προσθέτουμε το νέο habit στη λίστα\r\n        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);\r\n        if (fragment instanceof Habits) {\r\n            ((Habits) fragment).onAddHabit(habitName);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/habit_app/MainActivity.java b/app/src/main/java/com/example/habit_app/MainActivity.java
+--- a/app/src/main/java/com/example/habit_app/MainActivity.java	
++++ b/app/src/main/java/com/example/habit_app/MainActivity.java	
+@@ -20,7 +20,7 @@
+         setContentView(view);
+ 
+         // Ορίστε το listener για την προσθήκη του AddFragment
+-        binding.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
++        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+             if (item.getItemId() == R.id.habbit) {
+                 replaceFragment(new Habits());
+                 return true;
+@@ -59,5 +59,12 @@
+         if (fragment instanceof Habits) {
+             ((Habits) fragment).onAddHabit(habitName);
+         }
++
++        // Ενημερώνουμε τη λίστα με τα habits σε κάθε προσθήκη
++        Fragment habitsFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
++        if (habitsFragment instanceof Habits) {
++            ((Habits) habitsFragment).updateHabitList();
++        }
+     }
++
+ }
+Index: app/src/main/java/com/example/habit_app/Habits.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.habit_app;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.ProgressBar;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Habits extends Fragment implements AddFragment.AddHabitListener {\r\n\r\n    private ProgressBar progressBar;\r\n    private ProgressBar progressBarXP;\r\n    private TextView progressText;\r\n    private TextView xpProgressText;\r\n    private TextView levelText;\r\n    private TextView coinsText;\r\n    private int currentHp;  // Current HP value\r\n    private int maximumHp;  // Maximum HP value\r\n    private int currentXp = 0;  // Current XP value\r\n    private int maximumXp = 100;  // Maximum XP value\r\n    private int level = 1;           // Current level value\r\n    private int coins = 0;           // Current coins value\r\n    private List<String> habitList = new ArrayList<>();\r\n    private LinearLayout habitContainer; // LinearLayout to hold habit cards\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {\r\n        View view = inflater.inflate(R.layout.habits, container, false);\r\n        habitList = new ArrayList<>();\r\n\r\n        // Initialize habitContainer\r\n        habitContainer = view.findViewById(R.id.habitContainer);\r\n\r\n        // Initialize UI elements\r\n        progressBar = view.findViewById(R.id.progressBar);\r\n        progressBarXP = view.findViewById(R.id.progressBar2);\r\n        progressText = view.findViewById(R.id.hp);\r\n        xpProgressText = view.findViewById(R.id.xp);\r\n        levelText = view.findViewById(R.id.user_level);\r\n        coinsText = view.findViewById(R.id.coinstext);\r\n\r\n        // Set initial values\r\n        currentHp = 100;\r\n        maximumHp = 100;\r\n        currentXp = 0;\r\n        maximumXp = (level - 1) * 12 + 100;\r\n\r\n        // Update UI\r\n        updateProgress(progressBar, progressText, currentHp, maximumHp);\r\n        updateProgress(progressBarXP, xpProgressText, currentXp, maximumXp);\r\n        setLevelText(level);\r\n        setCoinsText(coins);\r\n\r\n        return view;\r\n    }\r\n\r\n    private void createHabitCards(List<String> habitList) {\r\n        habitContainer.removeAllViews(); // Αφαιρούμε τις υπάρχουσες κάρτες \"habit\"\r\n        for (String habit : habitList) {\r\n            View habitCard = LayoutInflater.from(getContext()).inflate(R.layout.habit, habitContainer, false);\r\n            Button buttonPlus = habitCard.findViewById(R.id.buttonPlus);\r\n            Button buttonMinus = habitCard.findViewById(R.id.buttonMinus);\r\n            TextView habitName = habitCard.findViewById(R.id.habitName);\r\n            TextView clickCounter = habitCard.findViewById(R.id.clickCounter);\r\n            habitName.setText(habit);\r\n\r\n            int[] clickCount = {0};\r\n\r\n            habitCard.setOnClickListener(v -> new AlertDialog.Builder(getContext())\r\n                    .setTitle(\"Delete Habit\")\r\n                    .setMessage(\"Are you sure you want to delete this habit?\")\r\n                    .setPositiveButton(android.R.string.yes, (dialog, which) -> habitContainer.removeView(habitCard))\r\n                    .setNegativeButton(android.R.string.no, null)\r\n                    .show());\r\n\r\n            buttonPlus.setOnClickListener(v -> {\r\n                clickCount[0]++;\r\n                clickCounter.setText(String.valueOf(clickCount[0]));\r\n                increaseXp(10 + (level - 1));\r\n            });\r\n\r\n            buttonMinus.setOnClickListener(v -> {\r\n                if (clickCount[0] > 0) clickCount[0]--;\r\n                clickCounter.setText(String.valueOf(clickCount[0]));\r\n                decreaseXp(10 + (level - 1));\r\n            });\r\n\r\n            habitContainer.addView(habitCard);\r\n        }\r\n    }\r\n\r\n\r\n    private void setLevelText(int level) {\r\n        String levelString = getString(R.string.Level, level);\r\n        levelText.setText(levelString);\r\n    }\r\n\r\n    private void setCoinsText(int coins) {\r\n        String coinString = getString(R.string.currentCoins, coins);\r\n        coinsText.setText(coinString);\r\n    }\r\n\r\n    private void updateProgress(ProgressBar pBar, TextView prText, int currentValue, int maximumValue) {\r\n        int progress = (int) ((float) currentValue / maximumValue * 100);\r\n        pBar.setProgress(progress);\r\n        prText.setText(currentValue + \"/\" + maximumValue);\r\n    }\r\n\r\n    public void increaseXp(int increaseAmount) {\r\n        currentXp += increaseAmount;\r\n        if (currentXp >= maximumXp) increaseLevel(1);\r\n        updateProgress(progressBarXP, xpProgressText, currentXp, maximumXp);\r\n    }\r\n\r\n    public void increaseLevel(int increaseAmount) {\r\n        level += increaseAmount;\r\n        currentXp = 0;\r\n        maximumXp = 100 + (level - 1) * 25;\r\n        maximumHp += 10 + (level - 1) * 1.5;\r\n        coins += level * 3 + 10;\r\n        restoreHp();\r\n        setCoinsText(coins);\r\n        setLevelText(level);\r\n        updateProgress(progressBarXP, xpProgressText, currentXp, maximumXp);\r\n    }\r\n\r\n    public void decreaseXp(int decreaseAmount) {\r\n        if (currentXp - decreaseAmount >= 0) currentXp -= decreaseAmount;\r\n        else {\r\n            currentXp = 0;\r\n            decreaseHp(10 + (level - 1) * 2);\r\n            updateProgress(progressBar, progressText, currentHp, maximumHp);\r\n        }\r\n        updateProgress(progressBarXP, xpProgressText, currentXp, maximumXp);\r\n    }\r\n\r\n    public void decreaseHp(int decreaseAmount) {\r\n        if (currentHp - decreaseAmount >= 0) currentHp -= decreaseAmount;\r\n        else {\r\n            decreaseCoins(5);\r\n            currentHp = 0;\r\n        }\r\n        updateProgress(progressBar, progressText, currentHp, maximumHp);\r\n    }\r\n\r\n    public void decreaseCoins(int decreaseAmount) {\r\n        if (coins >= decreaseAmount) coins -= decreaseAmount;\r\n        else coins = 0;\r\n        setCoinsText(coins);\r\n    }\r\n\r\n    public void restoreHp() {\r\n        currentHp = maximumHp;\r\n        updateProgress(progressBar, progressText, currentHp, maximumHp);\r\n    }\r\n\r\n    @Override\r\n    public void onAddHabit(String habitName) {\r\n        if (habitList == null) {\r\n            habitList = new ArrayList<>();\r\n        }\r\n        habitList.add(habitName);\r\n        createHabitCards(habitList);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/habit_app/Habits.java b/app/src/main/java/com/example/habit_app/Habits.java
+--- a/app/src/main/java/com/example/habit_app/Habits.java	
++++ b/app/src/main/java/com/example/habit_app/Habits.java	
+@@ -35,7 +35,6 @@
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         View view = inflater.inflate(R.layout.habits, container, false);
+-        habitList = new ArrayList<>();
+ 
+         // Initialize habitContainer
+         habitContainer = view.findViewById(R.id.habitContainer);
+@@ -63,6 +62,7 @@
+         return view;
+     }
+ 
++
+     private void createHabitCards(List<String> habitList) {
+         habitContainer.removeAllViews(); // Αφαιρούμε τις υπάρχουσες κάρτες "habit"
+         for (String habit : habitList) {
+@@ -168,8 +168,14 @@
+         if (habitList == null) {
+             habitList = new ArrayList<>();
+         }
++        System.out.println("Ekteleitai svsta stin habits");
+         habitList.add(habitName);
+         createHabitCards(habitList);
+     }
+ 
++    public void updateHabitList() {
++        createHabitCards(habitList);
++    }
++
++
+ }
+Index: app/src/main/res/layout/fragment_add.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:padding=\"16dp\"\r\n    tools:context=\".AddFragment\">\r\n\r\n    <!-- EditText για την εισαγωγή του ονόματος του habit -->\r\n    <EditText\r\n        android:id=\"@+id/editTextHabitName\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Enter habit name\"\r\n        android:inputType=\"text\" />\r\n\r\n    <!-- Κουμπί για την υποβολή του νέου habit -->\r\n    <Button\r\n        android:id=\"@+id/addButton\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Add Habit\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:onClick=\"addHabit\" />\r\n\r\n</LinearLayout>\r\n
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_add.xml b/app/src/main/res/layout/fragment_add.xml
+--- a/app/src/main/res/layout/fragment_add.xml	
++++ b/app/src/main/res/layout/fragment_add.xml	
+@@ -4,8 +4,14 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
++    android:gravity="center"
+     android:padding="16dp"
+-    tools:context=".AddFragment">
++    android:paddingTop="24dp"
++    android:paddingBottom="24dp"
++    android:elevation="4dp"
++    tools:context=".AddFragment"
++    android:background="@android:color/transparent">
++
+ 
+     <!-- EditText για την εισαγωγή του ονόματος του habit -->
+     <EditText
+@@ -13,7 +19,21 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="Enter habit name"
+-        android:inputType="text" />
++        android:textColorHint="@android:color/darker_gray"
++        android:textColor="@android:color/darker_gray"
++        android:inputType="text"
++        android:layout_marginTop="20dp" />
++
++    <!-- Spinner για την επιλογή της δυσκολίας -->
++    <Spinner
++        android:id="@+id/difficultySpinner"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="20dp"
++        android:entries="@array/difficulty_levels"/>
++<!--        android:textColorHint="@android:color/darker_gray"-->
++<!--        android:textColor="@android:color/darker_gray"-->
++<!--        />-->
+ 
+     <!-- Κουμπί για την υποβολή του νέου habit -->
+     <Button
+@@ -21,7 +41,8 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Add Habit"
+-        android:layout_marginTop="16dp"
++        android:layout_marginTop="20dp"
+         android:onClick="addHabit" />
+ 
+ </LinearLayout>
++
