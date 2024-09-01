@@ -1,5 +1,7 @@
 package com.example.habit_app;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,10 +18,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check if it's the first run
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        boolean isFirstRun = preferences.getBoolean("isFirstRun", true);
+
+        if (isFirstRun) {
+            // If it's the first time, launch the AvatarActivity
+            Intent intent = new Intent(this, AvatarActivity.class);
+            startActivity(intent);
+            finish(); // Close the MainActivity
+            return; // Exit the onCreate method early to prevent further execution
+        }
+
         setContentView(R.layout.activity_main);
 
         // Set up the navigation controller and configuration
         setupNavigation();
+
+        // Optionally, use the avatar and nickname in this activity
+        String nickname = preferences.getString("NICKNAME", "User");
+        int avatarId = preferences.getInt("AVATAR_ID", -1);
+
+        // Use the nickname and avatarId as needed within your activity
     }
 
     private void setupNavigation() {
@@ -38,12 +59,10 @@ public class MainActivity extends AppCompatActivity {
         // Create an AppBarConfiguration with the IDs of the fragments you want to consider as top-level destinations
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.profileFragment // Replace with your actual fragment IDs
-//                R.id.inventoryFragment,
         ).build();
 
         // Link the NavController with the BottomNavigationView
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
     }
 
     @Override
