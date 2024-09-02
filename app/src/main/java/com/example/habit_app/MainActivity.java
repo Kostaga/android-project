@@ -3,6 +3,7 @@ package com.example.habit_app;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
             avatarImageView.setImageResource(avatarId);
         }
         nicknameTextView.setText(nickname);
+
+        // Handle BottomNavigationView item selection
+        setupBottomNavigation();
     }
 
     private void setupNavigation() {
@@ -67,16 +71,33 @@ public class MainActivity extends AppCompatActivity {
             throw new IllegalStateException("NavHostFragment not found.");
         }
 
-        // Set up the BottomNavigationView
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         // Create an AppBarConfiguration with the IDs of the fragments you want to consider as top-level destinations
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.profileFragment // Replace with your actual fragment IDs
         ).build();
+    }
+
+    private void setupBottomNavigation() {
+        // Set up the BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
         // Link the NavController with the BottomNavigationView
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        // Handle BottomNavigationView item selection
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.home) {
+                return true;
+            } else if (item.getItemId() == R.id.inventory) {
+                // Launch InventoryActivity when the inventory tab is selected
+                startActivity(new Intent(getApplicationContext(), InventoryActivity.class));
+                finish();
+                return true;
+            }
+            // Handle other items if needed
+            return false;
+        });
     }
 
     @Override
