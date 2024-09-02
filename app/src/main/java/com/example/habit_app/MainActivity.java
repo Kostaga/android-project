@@ -3,17 +3,23 @@ package com.example.habit_app;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
+    private ImageView avatarImageView;
+    private TextView nicknameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,15 @@ public class MainActivity extends AppCompatActivity {
         String nickname = preferences.getString("NICKNAME", "User");
         int avatarId = preferences.getInt("AVATAR_ID", -1);
 
-        // Use the nickname and avatarId as needed within your activity
+        // Initialize the UI elements
+        avatarImageView = findViewById(R.id.profile_picture); // Your ImageView for the avatar
+        nicknameTextView = findViewById(R.id.user_name); // Your TextView for the nickname
+
+        // Set the avatar and nickname in the UI
+        if (avatarId != -1) {
+            avatarImageView.setImageResource(avatarId);
+        }
+        nicknameTextView.setText(nickname);
     }
 
     private void setupNavigation() {
