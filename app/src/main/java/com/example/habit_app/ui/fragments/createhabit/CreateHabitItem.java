@@ -51,7 +51,7 @@ public class CreateHabitItem extends Fragment {
         // Validate input
         if (!title.isEmpty() && !description.isEmpty()) {
             // Create a new habit object with name and description only
-            Habit habit = new Habit(title, description);
+            Habit habit = new Habit(title, description,0);
 
             // Insert habit into the database using ViewModel
             habitViewModel.addHabit(habit);

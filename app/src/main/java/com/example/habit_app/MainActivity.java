@@ -3,8 +3,8 @@ package com.example.habit_app;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,16 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ImageView avatarImageView;
     private TextView nicknameTextView;
+
+    // TextViews for level, xp, health, and coins
+    private TextView levelTextView;
+    private TextView xpTextView;
+    private TextView healthTextView;
+    private TextView coinsTextView;
+
+    // ProgressBars for XP and Health
+    private ProgressBar xpProgressBar;
+    private ProgressBar healthProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,39 @@ public class MainActivity extends AppCompatActivity {
         }
         nicknameTextView.setText(nickname);
 
+        // Initialize level, xp, health, and coins TextViews
+        levelTextView = findViewById(R.id.user_level);
+        xpTextView = findViewById(R.id.xp);
+        healthTextView = findViewById(R.id.hp);
+        coinsTextView = findViewById(R.id.coinstext);
+
+        // Initialize ProgressBars
+        xpProgressBar = findViewById(R.id.progressBar2);
+        healthProgressBar = findViewById(R.id.progressBar);
+
+        // Retrieve and display user data
+        int level = preferences.getInt("LEVEL", 1);
+        int xp = preferences.getInt("XP", 0);
+        int health = preferences.getInt("HEALTH", 100);
+        int coins = preferences.getInt("COINS", 0);
+
+        // Assume max XP and Health values
+        int maxXP = 100;
+        int maxHealth = 100;
+
+        // Set the values in the UI
+        levelTextView.setText(getString(R.string.level, level));
+        xpTextView.setText(getString(R.string.xp_format, maxXP));
+        healthTextView.setText(getString(R.string.hp_format, maxHealth));
+        coinsTextView.setText(String.valueOf(coins));
+
+        // Set progress bar values
+        xpProgressBar.setMax(maxXP);
+        xpProgressBar.setProgress(xp);
+
+        healthProgressBar.setMax(maxHealth);
+        healthProgressBar.setProgress(health);
+
         // Handle BottomNavigationView item selection
         setupBottomNavigation();
     }
@@ -70,11 +113,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             throw new IllegalStateException("NavHostFragment not found.");
         }
-
-        // Create an AppBarConfiguration with the IDs of the fragments you want to consider as top-level destinations
-        appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.profileFragment // Replace with your actual fragment IDs
-        ).build();
     }
 
     private void setupBottomNavigation() {
@@ -109,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

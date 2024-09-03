@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_habitList_to_createHabitItem"
             app:destination="@id/createHabitItem" />
-        <action
-            android:id="@+id/action_habitList_to_profileFragment"
-            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/createHabitItem"
@@ -26,18 +23,4 @@
             android:id="@+id/action_createHabitItem_to_habitList"
             app:destination="@id/habitList" />
     </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.habit_app.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_habitList"
-            app:destination="@id/habitList" />
-    </fragment>
-    <activity
-        android:id="@+id/inventoryActivity"
-        android:name="com.example.habit_app.InventoryActivity"
-        android:label="activity_inventory"
-        tools:layout="@layout/activity_inventory" />
 </navigation>

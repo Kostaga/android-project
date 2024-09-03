@@ -2,9 +2,9 @@ package com.example.habit_app.logic.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,7 +17,7 @@ import java.util.List;
 public class HabitDao extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "habit_database";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Incremented the version
 
     public static final String TABLE_NAME = "habit_table";
 
@@ -32,8 +32,9 @@ public class HabitDao extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN click_count INTEGER DEFAULT 0");
+        }
     }
 
     // Add a habit
@@ -42,6 +43,7 @@ public class HabitDao extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("habit_title", habit.getHabitTitle());
         values.put("habit_description", habit.getHabitDescription());
+        values.put("click_count", habit.getClickCount());  // Include clickCount
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -53,6 +55,7 @@ public class HabitDao extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("habit_title", habit.getHabitTitle());
         values.put("habit_description", habit.getHabitDescription());
+        values.put("click_count", habit.getClickCount());  // Include clickCount
 
         db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(habit.getId())});
         db.close();

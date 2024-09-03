@@ -1,38 +1,52 @@
 package com.example.habit_app.ui.fragments.habitlist.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.habit_app.R;
 import com.example.habit_app.data.models.Habit;
+import com.example.habit_app.ui.viewmodels.HabitViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Inside HabitListAdapter
 public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyViewHolder> {
 
     private List<Habit> habitsList = new ArrayList<>();
     private OnHabitClickListener onHabitClickListener;
 
+    HabitViewModel habitViewModel;
+
+    // Interface for click listener
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
     }
 
+    // Setter for the click listener
     public void setOnHabitClickListener(OnHabitClickListener listener) {
         this.onHabitClickListener = listener;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTextView;
+        TextView clickCounter;
+        Button buttonPlus;
+        Button buttonMinus;
+
         public MyViewHolder(@NonNull View itemView, final OnHabitClickListener listener) {
             super(itemView);
+            titleTextView = itemView.findViewById(R.id.habitName);
+            clickCounter = itemView.findViewById(R.id.clickCounter);
+            buttonPlus = itemView.findViewById(R.id.buttonPlus);
+            buttonMinus = itemView.findViewById(R.id.buttonMinus);
+
+            // Setup click listener on the entire item view
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -58,10 +72,30 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Habit currentHabit = habitsList.get(position);
-        TextView titleTextView = holder.itemView.findViewById(R.id.habitName);
-        titleTextView.setText(currentHabit.getHabitTitle());
+        holder.titleTextView.setText(currentHabit.getHabitTitle());
+        holder.clickCounter.setText(String.valueOf(currentHabit.getClickCount()));
 
         holder.itemView.setTag(currentHabit); // Set the habit as a tag for easy access in the listener
+
+        // Increment button functionality
+        holder.buttonPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newCount = currentHabit.getClickCount() + 1;
+                currentHabit.setClickCount(newCount);
+                holder.clickCounter.setText(String.valueOf(newCount));
+            }
+        });
+
+        // Decrement button functionality
+        holder.buttonMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newCount = currentHabit.getClickCount() > 0 ? currentHabit.getClickCount() - 1 : 0;
+                currentHabit.setClickCount(newCount);
+                holder.clickCounter.setText(String.valueOf(newCount));
+            }
+        });
     }
 
     @Override
@@ -81,5 +115,4 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
             notifyItemRemoved(position);
         }
     }
-
 }
