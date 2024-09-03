@@ -1,5 +1,7 @@
 package com.example.habit_app.ui.fragments.habitlist;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,13 +55,9 @@ public class HabitList extends Fragment {
         // Instantiate and create ViewModel observers
         viewModels();
 
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(HabitList.this)
-                        .navigate(R.id.action_habitList_to_createHabitItem);
-            }
-        });
+        // Handle adding new habits
+        fabAdd.setOnClickListener(v -> NavHostFragment.findNavController(HabitList.this)
+                .navigate(R.id.action_habitList_to_createHabitItem));
 
         // Setup MenuProvider
         requireActivity().addMenuProvider(new MenuProvider() {
@@ -78,13 +76,13 @@ public class HabitList extends Fragment {
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
-        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.setData(habitList);
-                swipeToRefresh.setRefreshing(false);
-            }
+        swipeToRefresh.setOnRefreshListener(() -> {
+            adapter.setData(habitList);
+            swipeToRefresh.setRefreshing(false);
         });
+
+        // Set up the item click listener to delete a habit
+        adapter.setOnHabitClickListener(this::showDeleteConfirmationDialog);
     }
 
     private void viewModels() {
@@ -105,5 +103,15 @@ public class HabitList extends Fragment {
                 }
             }
         });
+    }
+
+    private void showDeleteConfirmationDialog(Habit habit) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Delete Habit")
+                .setMessage("Are you sure you want to delete this habit?")
+                .setPositiveButton("Yes", (dialog, which) -> habitViewModel.deleteHabit(habit))
+                .setNegativeButton("No", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
