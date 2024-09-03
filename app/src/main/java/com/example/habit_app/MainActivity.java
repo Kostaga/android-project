@@ -87,11 +87,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle BottomNavigationView item selection
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.home) {
+            int itemId = item.getItemId();
+
+            // Fetch the avatar and nickname from SharedPreferences
+            SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            String nickname = preferences.getString("NICKNAME", "User");
+            int avatarId = preferences.getInt("AVATAR_ID", -1);
+
+            if (itemId == R.id.home) {
                 return true;
-            } else if (item.getItemId() == R.id.inventory) {
-                // Launch InventoryActivity when the inventory tab is selected
-                startActivity(new Intent(getApplicationContext(), InventoryActivity.class));
+            } else if (itemId == R.id.inventory) {
+                // Launch InventoryActivity with avatar and nickname
+                Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
+                intent.putExtra("NICKNAME", nickname);
+                intent.putExtra("AVATAR_ID", avatarId);
+                startActivity(intent);
                 finish();
                 return true;
             }
@@ -99,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
