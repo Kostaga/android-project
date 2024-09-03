@@ -1,7 +1,6 @@
 package com.example.habit_app.ui.fragments.habitlist;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,7 +54,6 @@ public class HabitList extends Fragment {
         // Instantiate and create ViewModel observers
         viewModels();
 
-        // Handle adding new habits
         fabAdd.setOnClickListener(v -> NavHostFragment.findNavController(HabitList.this)
                 .navigate(R.id.action_habitList_to_createHabitItem));
 
@@ -109,9 +107,14 @@ public class HabitList extends Fragment {
         new AlertDialog.Builder(getContext())
                 .setTitle("Delete Habit")
                 .setMessage("Are you sure you want to delete this habit?")
-                .setPositiveButton("Yes", (dialog, which) -> habitViewModel.deleteHabit(habit))
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    habitViewModel.deleteHabit(habit);
+                    adapter.removeHabit(habit);
+                })
                 .setNegativeButton("No", null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+
 }

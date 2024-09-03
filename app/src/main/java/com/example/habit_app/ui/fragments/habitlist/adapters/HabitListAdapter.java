@@ -73,4 +73,13 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
         this.habitsList = habits;
         notifyDataSetChanged();
     }
+
+    public void removeHabit(Habit habit) {
+        int position = habitsList.indexOf(habit);
+        if (position >= 0) {
+            habitsList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
 }
