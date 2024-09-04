@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/habit"
-    android:layout_margin="5dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginStart="25dp"
     android:padding="8dp"
     android:orientation="horizontal"
 

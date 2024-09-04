@@ -1,102 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="35dp"
-    > <!-- Background color of the screen -->
+    android:id="@+id/main">
+
 
     <!-- Top bar with user name and exit icon -->
     <LinearLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-
-
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 
     <!-- Title: Choose your Avatar -->
     <TextView
         android:id="@+id/avatarTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
         android:text="Choose your Avatar"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
 
-    <!-- GridLayout for avatars -->
-    <GridLayout
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/avatar1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="2"
-        android:layout_gravity="center">
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/avatar1"
+        app:layout_constraintEnd_toStartOf="@id/avatar2"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatarTitle" />
 
-        <!-- Avatar options -->
-        <ImageView
-            android:id="@+id/avatar1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/avatar1" /> <!-- Replace with your avatar images -->
+    <ImageView
+        android:id="@+id/avatar2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/avatar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/avatar1"
+        app:layout_constraintTop_toBottomOf="@id/avatarTitle" />
 
-        <ImageView
-            android:id="@+id/avatar2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/avatar2" />
+    <ImageView
+        android:id="@+id/avatar3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/avatar3"
+        app:layout_constraintEnd_toStartOf="@id/avatar4"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar1" />
 
-        <ImageView
-            android:id="@+id/avatar3"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/avatar3" />
-
-        <ImageView
-            android:id="@+id/avatar4"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/avatar4" />
-    </GridLayout>
-
-    <!-- Nickname Input Field -->
+    <ImageView
+        android:id="@+id/avatar4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/avatar4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/avatar3"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2" />
 
     <EditText
         android:id="@+id/nicknameInput"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
+        android:hint="Nickname"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#CCCCCC"
-        android:hint="Nickname"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar3" />
 
-    <!-- Confirm button -->
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="Confirm"
-        android:textSize="18sp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="#5A67D8"
-        android:textColor="#FFFFFF"
         android:paddingStart="32dp"
-        android:paddingEnd="32dp"
         android:paddingTop="12dp"
+        android:paddingEnd="32dp"
         android:paddingBottom="12dp"
-        />
-</LinearLayout>
+        android:text="Confirm"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nicknameInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
