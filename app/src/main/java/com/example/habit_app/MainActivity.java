@@ -2,7 +2,10 @@ package com.example.habit_app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,24 +16,19 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.habit_app.data.database.HabitDatabase;
+import com.example.habit_app.data.models.Character;
+import com.example.habit_app.logic.repository.CharacterRepository;
+import com.example.habit_app.logic.repository.HabitRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
-    private ImageView avatarImageView;
-    private TextView nicknameTextView;
 
-    // TextViews for level, xp, health, and coins
-    private TextView levelTextView;
-    private TextView xpTextView;
-    private TextView healthTextView;
-    private TextView coinsTextView;
+    private SQLiteDatabase database;
 
-    // ProgressBars for XP and Health
-    private ProgressBar xpProgressBar;
-    private ProgressBar healthProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +42,30 @@ public class MainActivity extends AppCompatActivity {
             // If it's the first time, launch the AvatarActivity
             Intent intent = new Intent(this, AvatarActivity.class);
             startActivity(intent);
-            finish(); // Close the MainActivity
-            return; // Exit the onCreate method early to prevent further execution
+            finish();
+            return;
         }
 
+        Log.e("MainActivity", "onCreate");
+
         setContentView(R.layout.activity_main);
+
+        // Initialize the database helper
+        // Database helper
+        HabitDatabase dbHelper = new HabitDatabase(this);
+        database = dbHelper.getReadableDatabase();
+
 
         // Set up the navigation controller and configuration
         setupNavigation();
 
-        // Optionally, use the avatar and nickname in this activity
+        // Retrieve the avatar and nickname from SharedPreferences
         String nickname = preferences.getString("NICKNAME", "User");
         int avatarId = preferences.getInt("AVATAR_ID", -1);
 
         // Initialize the UI elements
-        avatarImageView = findViewById(R.id.profile_picture); // Your ImageView for the avatar
-        nicknameTextView = findViewById(R.id.user_name); // Your TextView for the nickname
+        ImageView avatarImageView = findViewById(R.id.profile_picture);
+        TextView nicknameTextView = findViewById(R.id.user_name);
 
         // Set the avatar and nickname in the UI
         if (avatarId != -1) {
@@ -68,40 +74,69 @@ public class MainActivity extends AppCompatActivity {
         nicknameTextView.setText(nickname);
 
         // Initialize level, xp, health, and coins TextViews
-        levelTextView = findViewById(R.id.user_level);
-        xpTextView = findViewById(R.id.xp);
-        healthTextView = findViewById(R.id.hp);
-        coinsTextView = findViewById(R.id.coinstext);
+        // TextViews for level, xp, health, and coins
+        TextView levelTextView = findViewById(R.id.user_level);
+        TextView xpTextView = findViewById(R.id.xp);
+        TextView healthTextView = findViewById(R.id.hp);
+        TextView coinsTextView = findViewById(R.id.coinstext);
 
         // Initialize ProgressBars
-        xpProgressBar = findViewById(R.id.progressBar2);
-        healthProgressBar = findViewById(R.id.progressBar);
+        // ProgressBars for XP and Health
+        ProgressBar xpProgressBar = findViewById(R.id.progressBar2);
+        ProgressBar healthProgressBar = findViewById(R.id.progressBar);
 
-        // Retrieve and display user data
-        int level = preferences.getInt("LEVEL", 1);
-        int xp = preferences.getInt("XP", 0);
-        int health = preferences.getInt("HEALTH", 100);
-        int coins = preferences.getInt("COINS", 0);
+        // Fetch character data from the database
+        Character character = getCharacterFromDatabase();
 
         // Assume max XP and Health values
         int maxXP = 100;
         int maxHealth = 100;
 
-        // Set the values in the UI
-        levelTextView.setText(getString(R.string.level, level));
-        xpTextView.setText(getString(R.string.xp_format, maxXP));
-        healthTextView.setText(getString(R.string.hp_format, maxHealth));
-        coinsTextView.setText(String.valueOf(coins));
+        Log.e("MainActivity", "Character: " + character.getXp());
+        Log.d("MainActivity", "Character: ");
 
-        // Set progress bar values
-        xpProgressBar.setMax(maxXP);
-        xpProgressBar.setProgress(xp);
 
-        healthProgressBar.setMax(maxHealth);
-        healthProgressBar.setProgress(health);
+        // If character data exists, set the values in the UI
+        if (character != null) {
+            levelTextView.setText(getString(R.string.level, character.getLevel()));
+            xpTextView.setText(getString(R.string.xp_format, character.getXp(), maxXP));
+            healthTextView.setText(getString(R.string.hp_format, character.getHp(), maxHealth));
+            coinsTextView.setText(String.valueOf(character.getCoins()));
+
+            // Set progress bar values
+            xpProgressBar.setMax(maxXP);
+            xpProgressBar.setProgress(character.getXp());
+
+            healthProgressBar.setMax(maxHealth);
+            healthProgressBar.setProgress(character.getHp());
+        } else {
+            // Handle the case where the character data is not found
+            levelTextView.setText(getString(R.string.level, 1));
+            xpTextView.setText(getString(R.string.xp_format, 0, maxXP));
+            healthTextView.setText(getString(R.string.hp_format, 100, maxHealth));
+            coinsTextView.setText("0");
+
+            xpProgressBar.setMax(maxXP);
+            xpProgressBar.setProgress(0);
+
+            healthProgressBar.setMax(maxHealth);
+            healthProgressBar.setProgress(100);
+        }
 
         // Handle BottomNavigationView item selection
         setupBottomNavigation();
+    }
+
+    private Character getCharacterFromDatabase() {
+        // Query the database for the first character
+        Cursor cursor = database.query("character_table", null, null, null, null, null, null);
+        Character character = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            // If data is available, create a Character object from the cursor
+            character = Character.fromCursor(cursor);
+            cursor.close();
+        }
+        return character;
     }
 
     private void setupNavigation() {
@@ -149,8 +184,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (database != null) {
+            database.close();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         // Handle the up button in the action bar
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
+
+
+
 }
+
+
+

@@ -23,6 +23,8 @@ import com.example.habit_app.ui.viewmodels.HabitViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.List;
+import com.example.habit_app.logic.dao.CharacterDao;
+import com.example.habit_app.logic.repository.CharacterRepository;
 
 public class HabitList extends Fragment {
 
@@ -41,8 +43,9 @@ public class HabitList extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        adapter = new HabitListAdapter();
+        CharacterDao characterDao = new CharacterDao(getContext());
+        CharacterRepository characterRepository = new CharacterRepository(characterDao);
+        adapter = new HabitListAdapter(characterRepository);
         rvHabits = view.findViewById(R.id.rv_habits);
         fabAdd = view.findViewById(R.id.fab_add);
         swipeToRefresh = view.findViewById(R.id.swipeToRefresh);
