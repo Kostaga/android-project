@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.habit_app.data.database.HabitDatabase;
 import com.example.habit_app.data.models.Character;
+import com.example.habit_app.logic.dao.CharacterDao;
 import com.example.habit_app.logic.repository.CharacterRepository;
 import com.example.habit_app.logic.repository.HabitRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Log.e("MainActivity", "onCreate");
+
 
         setContentView(R.layout.activity_main);
+
 
         // Initialize the database helper
         // Database helper
@@ -88,40 +91,32 @@ public class MainActivity extends AppCompatActivity {
         // Fetch character data from the database
         Character character = getCharacterFromDatabase();
 
-        // Assume max XP and Health values
-        int maxXP = 100;
-        int maxHealth = 100;
-
-        Log.e("MainActivity", "Character: " + character.getXp());
-        Log.d("MainActivity", "Character: ");
 
 
         // If character data exists, set the values in the UI
         if (character != null) {
             levelTextView.setText(getString(R.string.level, character.getLevel()));
-            xpTextView.setText(getString(R.string.xp_format, character.getXp(), maxXP));
-            healthTextView.setText(getString(R.string.hp_format, character.getHp(), maxHealth));
+            xpTextView.setText(getString(R.string.xp_format, character.getXp(), character.getMaxXp()));
+            healthTextView.setText(getString(R.string.hp_format, character.getHp(), character.getMaxHp()));
             coinsTextView.setText(String.valueOf(character.getCoins()));
 
             // Set progress bar values
-            xpProgressBar.setMax(maxXP);
+            xpProgressBar.setMax(character.getMaxXp());
             xpProgressBar.setProgress(character.getXp());
 
-            healthProgressBar.setMax(maxHealth);
-            healthProgressBar.setProgress(character.getHp());
         } else {
             // Handle the case where the character data is not found
             levelTextView.setText(getString(R.string.level, 1));
-            xpTextView.setText(getString(R.string.xp_format, 0, maxXP));
-            healthTextView.setText(getString(R.string.hp_format, 100, maxHealth));
+            xpTextView.setText(getString(R.string.xp_format, 0, character.getMaxXp()));
+            healthTextView.setText(getString(R.string.hp_format, 100, character.getMaxHp()));
             coinsTextView.setText("0");
 
-            xpProgressBar.setMax(maxXP);
+            xpProgressBar.setMax(character.getMaxXp());
             xpProgressBar.setProgress(0);
 
-            healthProgressBar.setMax(maxHealth);
-            healthProgressBar.setProgress(100);
         }
+        healthProgressBar.setMax(character.getMaxHp());
+        healthProgressBar.setProgress(character.getHp());
 
         // Handle BottomNavigationView item selection
         setupBottomNavigation();
@@ -196,6 +191,41 @@ public class MainActivity extends AppCompatActivity {
         // Handle the up button in the action bar
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
+
+    public void refreshUI() {
+            Character character = getCharacterFromDatabase();
+            // Initialize UI elements
+            TextView levelTextView = findViewById(R.id.user_level);
+            TextView xpTextView = findViewById(R.id.xp);
+            TextView healthTextView = findViewById(R.id.hp);
+            TextView coinsTextView = findViewById(R.id.coinstext);
+            ProgressBar xpProgressBar = findViewById(R.id.progressBar2);
+            ProgressBar healthProgressBar = findViewById(R.id.progressBar);
+
+            // Update UI elements with character data
+            levelTextView.setText(getString(R.string.level, character.getLevel()));
+            xpTextView.setText(getString(R.string.xp_format, character.getXp(), character.getMaxXp()));
+            healthTextView.setText(getString(R.string.hp_format, character.getHp(), character.getMaxHp()));
+            coinsTextView.setText(String.valueOf(character.getCoins()));
+
+            // Update progress bars
+            xpProgressBar.setMax(character.getMaxXp());
+            xpProgressBar.setProgress(character.getXp());
+            healthProgressBar.setMax(character.getMaxHp());
+            healthProgressBar.setProgress(character.getHp());
+
+
+
+    }
+
+
+
+    // Method to refresh the activity
+    public void refreshActivity() {
+        finish(); // Finish the current activity
+        startActivity(getIntent()); // Restart the activity
+    }
+
 
 
 

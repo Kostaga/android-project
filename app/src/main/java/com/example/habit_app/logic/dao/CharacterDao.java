@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -46,7 +47,7 @@ public class CharacterDao extends SQLiteOpenHelper {
 
     // Get character by ID
     // Get character by ID and update LiveData
-    private Character getCharacterById(int characterId) {
+    public Character getCharacterById(int characterId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE id = ?", new String[]{String.valueOf(characterId)});
         Character character = null;
@@ -65,7 +66,7 @@ public class CharacterDao extends SQLiteOpenHelper {
     public void increaseHp(int characterId, int amount) {
         Character character = getCharacterById(characterId);
         if (character != null) {
-            int newHp = Math.min(character.getCurrentHp() + amount, character.getMaximumHp());
+            int newHp = Math.min(character.getCurrentHp() + amount, character.getMaxXp());
             character.setCurrentHp(newHp);
             saveCharacterHp(characterId, newHp);
 
@@ -74,16 +75,8 @@ public class CharacterDao extends SQLiteOpenHelper {
         }
     }
 
-    public void setHp(int characterId, int amount) {
-        Character character = getCharacterById(characterId);
-        if (character != null) {
-            character.setCurrentHp(amount);
-            saveCharacterHp(characterId, amount);
 
-            // Update LiveData after change
-            characterLiveData.postValue(character);
-        }
-    }
+
 
     // Method to decrease HP and save to database
     public void decreaseHp(int characterId, int amount) {
@@ -92,6 +85,9 @@ public class CharacterDao extends SQLiteOpenHelper {
             int newHp = Math.max(character.getCurrentHp() - amount, 0);
             character.setCurrentHp(newHp);
             saveCharacterHp(characterId, newHp);
+            if (newHp == 0) {
+                decreaseCoins(characterId, 10); // Apply coin penalty if HP drops to 0
+            }
 
             // Update LiveData after change
             characterLiveData.postValue(character);
@@ -103,12 +99,13 @@ public class CharacterDao extends SQLiteOpenHelper {
         Character character = getCharacterById(characterId);
         if (character != null) {
             int newXp = character.getXp() + amount;
-            if (newXp >= character.getMaximumXp()) {
+            if (newXp >= character.getMaxXp()) {
                 newXp = 0;
                 increaseLevel(characterId, 1); // Handle leveling up
             }
             character.setXp(newXp);
-            saveCharacterXp(characterId, newXp);
+            saveCharacterXp(characterId, character.getXp());
+
 
             // Update LiveData after XP change
             characterLiveData.postValue(character);
@@ -167,21 +164,18 @@ public class CharacterDao extends SQLiteOpenHelper {
 
             // Reset XP and adjust maximum XP and HP
             character.setXp(0);
-            int newMaxXp = 100 + (newLevel - 1) * 25;
-            character.setMaximumXp(newMaxXp);
-
-            int newMaxHp = character.getMaximumHp() + 10 + (int)((newLevel - 1) * 1.5);
-            character.setMaximumHp(newMaxHp);
+            character.setMaximumHp(100 + (newLevel - 1) * 10);
+            character.setMaximumXp(100 + (newLevel - 1) * 25);
 
             // Increase coins based on level
             int newCoins = character.getCoins() + newLevel * 3 + 10;
             character.setCoins(newCoins);
 
             // Restore HP to maximum after leveling up
-            character.setCurrentHp(newMaxHp);
+            character.setCurrentHp(character.getMaxHp());
 
             // Save all updated stats
-            saveCharacterStats(characterId, newLevel, 0, newMaxXp, newMaxHp, newCoins, newMaxHp);
+            saveCharacterStats(characterId, newLevel, character.getXp(), character.getMaxXp(), character.getMaxHp(), newCoins, character.getHp());
 
             // Update LiveData after level up
             characterLiveData.postValue(character);
@@ -220,6 +214,7 @@ public class CharacterDao extends SQLiteOpenHelper {
     private void saveCharacterStats(int characterId, int level, int xp, int maxXp, int maxHp, int coins, int hp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("id", characterId);
         values.put("level", level);
         values.put("xp", xp);
         values.put("max_xp", maxXp);
@@ -245,36 +240,11 @@ public class CharacterDao extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Delete a character
-    public void deleteCharacter(Character character) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        character.delete(db);
-        db.close();
+
+
+
+
+    public Character getCharacter() {
+        return characterLiveData.getValue();
     }
-
-    // Get all characters
-    public List<Character> getAllCharacters() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        List<Character> characterList = new ArrayList<>();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        if (cursor.moveToFirst()) {
-            do {
-                Character character = Character.fromCursor(cursor);
-                characterList.add(character);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-
-        return characterList;
-    }
-
-    // Delete all characters
-    public void deleteAllCharacters() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
-        db.close();
-    }
-
 }

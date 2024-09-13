@@ -7,12 +7,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.habit_app.MainActivity;
 import com.example.habit_app.R;
 import com.example.habit_app.data.models.Habit;
 import com.example.habit_app.logic.dao.CharacterDao;
-import com.example.habit_app.logic.repository.CharacterRepository;
+
 import com.example.habit_app.ui.viewmodels.HabitViewModel;
 
 import java.util.ArrayList;
@@ -24,14 +25,17 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
     private OnHabitClickListener onHabitClickListener;
 
     HabitViewModel habitViewModel;
-    CharacterRepository characterRepository;
+//    CharacterRepository characterRepository;
+    CharacterDao characterDao;
+    private MainActivity activity;
 
 
 
 
     // Constructor to accept CharacterRepository
-    public HabitListAdapter(CharacterRepository characterRepository) {
-        this.characterRepository = characterRepository; // Initialize here
+    public HabitListAdapter(CharacterDao characterDao, MainActivity activity) {
+        this.characterDao = characterDao;
+        this.activity = activity;
     }
 
 
@@ -97,8 +101,8 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
 
-
-                characterRepository.increaseXp(1, 25);
+                characterDao.increaseXp(1, 25 + newCount * 2);
+                activity.refreshUI();
 
 
 
@@ -112,8 +116,8 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 int newCount = currentHabit.getClickCount() > 0 ? currentHabit.getClickCount() - 1 : 0;
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
-
-                characterRepository.decreaseHp(1, 5);
+                characterDao.decreaseXp(1, 20);
+                activity.refreshUI();
             }
         });
     }

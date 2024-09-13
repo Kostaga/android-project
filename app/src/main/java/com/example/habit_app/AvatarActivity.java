@@ -81,7 +81,7 @@ public class AvatarActivity extends AppCompatActivity {
 
         // Insert the character into the SQLite database
         // Initial character stats: hp = 100, xp = 0, level = 1, coins = 0
-        Character character = new Character(100, 0, 1, 0);
+        Character character = new Character(1, 100, 0, 1, 0, 100, 100);
         long characterId = character.insert(database);  // Insert into database and get the ID
 
         if (characterId == -1) {
