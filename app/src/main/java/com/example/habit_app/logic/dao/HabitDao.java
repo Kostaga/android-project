@@ -17,7 +17,7 @@ import java.util.List;
 public class HabitDao extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "habit_database";
-    private static final int DATABASE_VERSION = 2; // Incremented the version
+    private static final int DATABASE_VERSION = 2; // Ensure this is set to the correct version
 
     public static final String TABLE_NAME = "habit_table";
 
@@ -56,6 +56,16 @@ public class HabitDao extends SQLiteOpenHelper {
         values.put("click_count", habit.getClickCount());  // Include clickCount
 
         db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(habit.getId())});
+        db.close();
+    }
+
+    // Update only the clickCount of a habit
+    public void updateHabitClickCount(int habitId, int newCount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("click_count", newCount);
+
+        db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(habitId)});
         db.close();
     }
 
