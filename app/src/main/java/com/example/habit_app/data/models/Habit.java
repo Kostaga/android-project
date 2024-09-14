@@ -23,23 +23,20 @@ public class Habit implements Parcelable {
     }
 
     // Constructors
-    public Habit(int id, String habitTitle, String habitDescription, int clickCount) {
+    public Habit(int id, String habitTitle, int clickCount) {
         this.id = id;
         this.habitTitle = habitTitle;
-        this.habitDescription = habitDescription;
         this.clickCount = clickCount;
     }
 
-    public Habit(String habitTitle, String habitDescription, int clickCount) {
+    public Habit(String habitTitle, int clickCount) {
         this.habitTitle = habitTitle;
-        this.habitDescription = habitDescription;
         this.clickCount = clickCount;
     }
 
     protected Habit(Parcel in) {
         id = in.readInt();
         habitTitle = in.readString();
-        habitDescription = in.readString();
         clickCount = in.readInt();
     }
 
@@ -63,10 +60,6 @@ public class Habit implements Parcelable {
         return habitTitle;
     }
 
-    public String getHabitDescription() {
-        return habitDescription;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -76,7 +69,6 @@ public class Habit implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(habitTitle);
-        parcel.writeString(habitDescription);
         parcel.writeInt(clickCount);
     }
 
@@ -87,7 +79,6 @@ public class Habit implements Parcelable {
         String createTable = "CREATE TABLE habit_table (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "habit_title TEXT, " +
-                "habit_description TEXT, " +
                 "click_count INTEGER DEFAULT 0)";  // Adding clickCount to the table
         db.execSQL(createTable);
     }
@@ -96,7 +87,6 @@ public class Habit implements Parcelable {
     public long insert(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("habit_title", habitTitle);
-        values.put("habit_description", habitDescription);
         values.put("click_count", clickCount);
 
         return db.insert("habit_table", null, values);
@@ -106,7 +96,6 @@ public class Habit implements Parcelable {
     public int update(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("habit_title", habitTitle);
-        values.put("habit_description", habitDescription);
         values.put("click_count", clickCount);
 
         return db.update("habit_table", values, "id = ?", new String[]{String.valueOf(id)});
@@ -121,9 +110,8 @@ public class Habit implements Parcelable {
     public static Habit fromCursor(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
         String habitTitle = cursor.getString(cursor.getColumnIndexOrThrow("habit_title"));
-        String habitDescription = cursor.getString(cursor.getColumnIndexOrThrow("habit_description"));
         int clickCount = cursor.getInt(cursor.getColumnIndexOrThrow("click_count"));
 
-        return new Habit(id, habitTitle, habitDescription, clickCount);
+        return new Habit(id, habitTitle, clickCount);
     }
 }

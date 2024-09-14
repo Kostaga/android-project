@@ -20,7 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.habit_app.data.database.HabitDatabase;
 import com.example.habit_app.data.models.Character;
 import com.example.habit_app.logic.dao.CharacterDao;
-import com.example.habit_app.logic.repository.CharacterRepository;
+//import com.example.habit_app.logic.repository.CharacterRepository;
 import com.example.habit_app.logic.repository.HabitRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

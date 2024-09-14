@@ -30,37 +30,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/et_habitDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="#26A69A"
-                android:hint="Give it a short description"
-                android:inputType="textShortMessage"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/btn_pickDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="#EF5350"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="Pick Difficulty Level"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/tv_dateSelected"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Difficulty: (not selected)"
-                android:textSize="20sp" />
-
 
             <Button
                 android:id="@+id/btn_confirm"

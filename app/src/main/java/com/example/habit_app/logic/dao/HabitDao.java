@@ -42,7 +42,6 @@ public class HabitDao extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("habit_title", habit.getHabitTitle());
-        values.put("habit_description", habit.getHabitDescription());
         values.put("click_count", habit.getClickCount());  // Include clickCount
 
         db.insert(TABLE_NAME, null, values);
@@ -54,7 +53,6 @@ public class HabitDao extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("habit_title", habit.getHabitTitle());
-        values.put("habit_description", habit.getHabitDescription());
         values.put("click_count", habit.getClickCount());  // Include clickCount
 
         db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(habit.getId())});

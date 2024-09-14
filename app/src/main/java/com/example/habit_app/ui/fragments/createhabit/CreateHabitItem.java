@@ -19,7 +19,6 @@ import com.example.habit_app.ui.viewmodels.HabitViewModel;
 public class CreateHabitItem extends Fragment {
 
     private EditText etHabitTitle;
-    private EditText etHabitDescription;
 
     private HabitViewModel habitViewModel;
 
@@ -32,7 +31,6 @@ public class CreateHabitItem extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         etHabitTitle = view.findViewById(R.id.et_habitTitle);
-        etHabitDescription = view.findViewById(R.id.et_habitDescription);
 
         habitViewModel = new ViewModelProvider(this).get(HabitViewModel.class);
 
@@ -46,12 +44,11 @@ public class CreateHabitItem extends Fragment {
 
     private void addHabitToDB() {
         String title = etHabitTitle.getText().toString();
-        String description = etHabitDescription.getText().toString();
 
         // Validate input
-        if (!title.isEmpty() && !description.isEmpty()) {
+        if (!title.isEmpty()) {
             // Create a new habit object with name and description only
-            Habit habit = new Habit(title, description,0);
+            Habit habit = new Habit(title,0);
 
             // Insert habit into the database using ViewModel
             habitViewModel.addHabit(habit);
