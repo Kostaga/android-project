@@ -12,14 +12,14 @@ import java.util.List;
 public class HabitRepository {
 
     private HabitDao habitDao;
-    private LiveData<List<Habit>> getAllHabits;
+    private static LiveData<List<Habit>> getAllHabits;
 
     public HabitRepository(HabitDao habitDao) {
         this.habitDao = habitDao;
-        this.getAllHabits = habitDao.getAllHabits();
+        getAllHabits = habitDao.getAllHabits();
     }
 
-    public LiveData<List<Habit>> getAllHabits() {
+    public static LiveData<List<Habit>> getAllHabits() {
         return getAllHabits;
     }
 

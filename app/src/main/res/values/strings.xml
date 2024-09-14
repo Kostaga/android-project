@@ -15,7 +15,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="level">Level %1$d</string>
-    <string name="xp_format">%1$d/100 XP</string>
-    <string name="hp_format">%1$d/100 HP</string>
+    <string name="xp_format">%d / %d XP</string>
+    <string name="hp_format">%d / %d HP</string>
     <string name="currentCoins">Coins: </string>
 </resources>

@@ -9,8 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.habit_app.MainActivity;
 import com.example.habit_app.R;
 import com.example.habit_app.data.models.Habit;
+import com.example.habit_app.logic.dao.CharacterDao;
+
 import com.example.habit_app.ui.viewmodels.HabitViewModel;
 
 import java.util.ArrayList;
@@ -22,6 +25,19 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
     private OnHabitClickListener onHabitClickListener;
 
     HabitViewModel habitViewModel;
+//    CharacterRepository characterRepository;
+    CharacterDao characterDao;
+    private MainActivity activity;
+
+
+
+
+    // Constructor to accept CharacterRepository
+    public HabitListAdapter(CharacterDao characterDao, MainActivity activity) {
+        this.characterDao = characterDao;
+        this.activity = activity;
+    }
+
 
     // Interface for click listener
     public interface OnHabitClickListener {
@@ -84,6 +100,12 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 int newCount = currentHabit.getClickCount() + 1;
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
+
+                characterDao.increaseXp(1, 25 + newCount * 2);
+                activity.refreshUI();
+
+
+
             }
         });
 
@@ -94,6 +116,8 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 int newCount = currentHabit.getClickCount() > 0 ? currentHabit.getClickCount() - 1 : 0;
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
+                characterDao.decreaseXp(1, 20);
+                activity.refreshUI();
             }
         });
     }
