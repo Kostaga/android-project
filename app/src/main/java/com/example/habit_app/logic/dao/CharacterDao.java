@@ -66,7 +66,7 @@ public class CharacterDao extends SQLiteOpenHelper {
     public void increaseHp(int characterId, int amount) {
         Character character = getCharacterById(characterId);
         if (character != null) {
-            int newHp = Math.min(character.getCurrentHp() + amount, character.getMaxXp());
+            int newHp = Math.min(character.getCurrentHp() + amount, character.getMaxHp());
             character.setCurrentHp(newHp);
             saveCharacterHp(characterId, newHp);
 
@@ -103,6 +103,7 @@ public class CharacterDao extends SQLiteOpenHelper {
                 newXp = 0;
                 increaseLevel(characterId, 1); // Handle leveling up
             }
+            increaseHp(characterId, 10 + (character.getLevel() - 1) * 2);
             character.setXp(newXp);
             saveCharacterXp(characterId, character.getXp());
 

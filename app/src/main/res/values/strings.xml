@@ -18,4 +18,10 @@
     <string name="xp_format">%d / %d XP</string>
     <string name="hp_format">%d / %d HP</string>
     <string name="currentCoins">Coins: </string>
+    <string name="itemsTitle">Items</string>
+    <string name="Strength">STR: +%d</string>
+    <string name="Dexterity">DEX: +%d</string>
+    <string name="Intelligence">INT: +%d</string>
+    <string name="Constitution">CON: +%d</string>
+    <string name="price">%d</string>
 </resources>

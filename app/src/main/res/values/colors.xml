@@ -9,5 +9,6 @@
     <color name="red">#DB4C4C</color>
     <color name="yellow">#FCFF67</color>
     <color name="transparent">#004C8B3C</color>
+    <color name="attributes">#50000000</color>
 
 </resources>
