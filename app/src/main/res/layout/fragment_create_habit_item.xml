@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/backgroundColor"
     tools:context=".ui.fragments.createhabit.CreateHabitItem">
 
     <ScrollView
@@ -24,10 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="#26A69A"
+                android:backgroundTint="@color/primaryColor"
+                android:textColorHint="@color/inactive"
                 android:hint="Habit title"
                 android:inputType="text"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
 
@@ -36,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="#26A69A"
+                android:backgroundTint="@color/primaryColor"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
