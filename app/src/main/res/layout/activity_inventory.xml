@@ -44,29 +44,31 @@
 
     <!-- Equipment Title -->
 
+
     <ImageView
         android:id="@+id/profile_picture"
         android:layout_width="132dp"
         android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:srcCompat="@drawable/avatar1" />
 
-
     <GridLayout
         android:id="@+id/attributesContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/attributes_bg"
         android:columnCount="2"
         android:padding="15dp"
         android:rowCount="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toEndOf="@+id/profile_picture"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
@@ -142,14 +144,16 @@
 
     <GridLayout
         android:id="@+id/equipmentGrid"
-        android:layout_width="347dp"
-        android:layout_height="77dp"
+        android:layout_width="334dp"
+        android:layout_height="76dp"
         android:layout_margin="25dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/equipmentTitle">
 
@@ -209,6 +213,9 @@
         android:layout_width="349dp"
         android:layout_height="196dp"
         android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
         android:rowCount="2"
