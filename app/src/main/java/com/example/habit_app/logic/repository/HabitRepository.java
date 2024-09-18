@@ -39,6 +39,13 @@ public class HabitRepository {
         new DeleteAllHabitsAsyncTask(habitDao).execute();
     }
 
+    // New method to update click count only
+    public void updateHabitClickCount(Habit habit, int newClickCount) {
+        habit.setClickCount(newClickCount);
+        new UpdateHabitClickCountAsyncTask(habitDao).execute(habit);
+    }
+
+    // AsyncTask for adding a habit
     private static class AddHabitAsyncTask extends AsyncTask<Habit, Void, Void> {
         private HabitDao habitDao;
 
@@ -53,6 +60,7 @@ public class HabitRepository {
         }
     }
 
+    // AsyncTask for updating a habit
     private static class UpdateHabitAsyncTask extends AsyncTask<Habit, Void, Void> {
         private HabitDao habitDao;
 
@@ -67,6 +75,22 @@ public class HabitRepository {
         }
     }
 
+    // New AsyncTask for updating click count only
+    private static class UpdateHabitClickCountAsyncTask extends AsyncTask<Habit, Void, Void> {
+        private HabitDao habitDao;
+
+        private UpdateHabitClickCountAsyncTask(HabitDao habitDao) {
+            this.habitDao = habitDao;
+        }
+
+        @Override
+        protected Void doInBackground(Habit... habits) {
+            habitDao.updateHabit(habits[0]);  // Update the habit with the new click count
+            return null;
+        }
+    }
+
+    // AsyncTask for deleting a habit
     private static class DeleteHabitAsyncTask extends AsyncTask<Habit, Void, Void> {
         private HabitDao habitDao;
 
@@ -81,6 +105,7 @@ public class HabitRepository {
         }
     }
 
+    // AsyncTask for deleting all habits
     private static class DeleteAllHabitsAsyncTask extends AsyncTask<Void, Void, Void> {
         private HabitDao habitDao;
 

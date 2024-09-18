@@ -13,6 +13,7 @@ import com.example.habit_app.MainActivity;
 import com.example.habit_app.R;
 import com.example.habit_app.data.models.Habit;
 import com.example.habit_app.logic.dao.CharacterDao;
+import com.example.habit_app.logic.dao.HabitDao;  // Import HabitDao
 
 import com.example.habit_app.ui.viewmodels.HabitViewModel;
 
@@ -25,19 +26,17 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
     private OnHabitClickListener onHabitClickListener;
 
     HabitViewModel habitViewModel;
-//    CharacterRepository characterRepository;
     CharacterDao characterDao;
     private MainActivity activity;
+    private HabitDao habitDao;  // Declare HabitDao
 
 
-
-
-    // Constructor to accept CharacterRepository
-    public HabitListAdapter(CharacterDao characterDao, MainActivity activity) {
+    // Constructor to accept CharacterDao and HabitDao
+    public HabitListAdapter(CharacterDao characterDao, HabitDao habitDao, MainActivity activity) {
         this.characterDao = characterDao;
+        this.habitDao = habitDao;
         this.activity = activity;
     }
-
 
     // Interface for click listener
     public interface OnHabitClickListener {
@@ -101,11 +100,11 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
 
-                characterDao.increaseXp(1, 25 + newCount * 2);
-                activity.refreshUI();
+                // Update in the database
+                habitDao.updateHabitClickCount(currentHabit.getId(), newCount);  // Persist the click count
 
-
-
+                characterDao.increaseXp(1, 25 + newCount * 2);  // Increase XP logic
+                activity.refreshUI();  // Refresh UI
             }
         });
 
@@ -116,8 +115,12 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitListAdapter.MyVi
                 int newCount = currentHabit.getClickCount() > 0 ? currentHabit.getClickCount() - 1 : 0;
                 currentHabit.setClickCount(newCount);
                 holder.clickCounter.setText(String.valueOf(newCount));
-                characterDao.decreaseXp(1, 20);
-                activity.refreshUI();
+
+                // Update in the database
+                habitDao.updateHabitClickCount(currentHabit.getId(), newCount);  // Persist the click count
+
+                characterDao.decreaseXp(1, 20);  // Decrease XP logic
+                activity.refreshUI();  // Refresh UI
             }
         });
     }

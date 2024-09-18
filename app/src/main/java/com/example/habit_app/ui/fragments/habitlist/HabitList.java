@@ -20,6 +20,7 @@ import androidx.lifecycle.Lifecycle;
 import com.example.habit_app.MainActivity;
 import com.example.habit_app.R;
 import com.example.habit_app.data.models.Habit;
+import com.example.habit_app.logic.dao.HabitDao;
 import com.example.habit_app.ui.fragments.habitlist.adapters.HabitListAdapter;
 import com.example.habit_app.ui.viewmodels.HabitViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,9 +53,10 @@ public class HabitList extends Fragment {
             activity = (MainActivity) getActivity();
         }
         CharacterDao characterDao = new CharacterDao(getContext());
+        HabitDao habitDao = new HabitDao(getContext());
 //        CharacterRepository characterRepository = new CharacterRepository(characterDao);
 
-        adapter = new HabitListAdapter(characterDao, activity);
+        adapter = new HabitListAdapter(characterDao,habitDao, activity);
         rvHabits = view.findViewById(R.id.rv_habits);
         fabAdd = view.findViewById(R.id.fab_add);
         swipeToRefresh = view.findViewById(R.id.swipeToRefresh);
