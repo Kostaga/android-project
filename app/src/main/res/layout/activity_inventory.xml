@@ -54,17 +54,18 @@
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:srcCompat="@drawable/avatar1" />
 
+
     <GridLayout
         android:id="@+id/attributesContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/attributes_bg"
-        android:padding="15dp"
         android:columnCount="2"
+        android:padding="15dp"
         android:rowCount="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toEndOf="@+id/profile_picture"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
@@ -86,11 +87,11 @@
             android:id="@+id/strengthAttribute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Strength"
             android:layout_row="1"
             android:layout_column="0"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/Strength"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
@@ -98,20 +99,20 @@
             android:id="@+id/constitutionAttribute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Constitution"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="10dp"
             android:layout_row="1"
             android:layout_column="1"
+            android:layout_marginTop="10dp"
+            android:text="@string/Constitution"
+            android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/intelligenceAttribute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Intelligence"
             android:layout_row="2"
             android:layout_column="0"
+            android:text="@string/Intelligence"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
@@ -119,13 +120,12 @@
             android:id="@+id/dexterityAttribute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Dexterity"
             android:layout_row="2"
             android:layout_column="1"
+            android:text="@string/Dexterity"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
     </GridLayout>
-
 
     <TextView
         android:id="@+id/equipmentTitle"
@@ -202,6 +202,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/equipmentGrid" />
 
+
     <GridLayout
         android:id="@+id/itemsGrid"
         android:layout_width="349dp"
@@ -210,9 +211,11 @@
         android:alignmentMode="alignMargins"
         android:columnCount="4"
         android:rowCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemsTitle">
+        app:layout_constraintTop_toBottomOf="@+id/itemsTitle"
+        app:layout_constraintVertical_bias="0.0">
 
         <!-- Item 1 (First row, first column) -->
         <LinearLayout
@@ -240,8 +243,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/sword"
-                    android:contentDescription="item1Icon" />
+                    android:contentDescription="item1Icon"
+                    android:src="@drawable/sword" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -257,17 +260,17 @@
                     android:id="@+id/coinIcon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon" />
+                    android:contentDescription="coinIcon"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -298,8 +301,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/staff"
-                    android:contentDescription="item2Icon" />
+                    android:contentDescription="item2Icon"
+                    android:src="@drawable/staff" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -315,17 +318,17 @@
                     android:id="@+id/coinIcon2"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon2" />
+                    android:contentDescription="coinIcon2"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -356,8 +359,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/book"
-                    android:contentDescription="item3Icon" />
+                    android:contentDescription="item3Icon"
+                    android:src="@drawable/book" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -373,17 +376,17 @@
                     android:id="@+id/coinIcon3"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon3" />
+                    android:contentDescription="coinIcon3"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -414,8 +417,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/iron_armor"
-                    android:contentDescription="item4Icon" />
+                    android:contentDescription="item4Icon"
+                    android:src="@drawable/iron_armor" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -431,17 +434,17 @@
                     android:id="@+id/coinIcon4"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon3" />
+                    android:contentDescription="coinIcon3"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -472,8 +475,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/iron_helmet"
-                    android:contentDescription="item5Icon" />
+                    android:contentDescription="item5Icon"
+                    android:src="@drawable/iron_helmet" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -489,17 +492,17 @@
                     android:id="@+id/coinIcon5"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon5" />
+                    android:contentDescription="coinIcon5"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -531,8 +534,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/torch"
-                    android:contentDescription="item6Icon" />
+                    android:contentDescription="item6Icon"
+                    android:src="@drawable/torch" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -548,17 +551,17 @@
                     android:id="@+id/coinIcon6"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon5" />
+                    android:contentDescription="coinIcon5"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -590,8 +593,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/large_full_flask"
-                    android:contentDescription="item7Icon" />
+                    android:contentDescription="item7Icon"
+                    android:src="@drawable/large_full_flask" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -607,17 +610,17 @@
                     android:id="@+id/coinIcon7"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon6" />
+                    android:contentDescription="coinIcon6"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
@@ -649,8 +652,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/leather_boots"
-                    android:contentDescription="item8Icon" />
+                    android:contentDescription="item8Icon"
+                    android:src="@drawable/leather_boots" />
             </FrameLayout>
 
             <!-- Price and Coin Icon -->
@@ -666,22 +669,21 @@
                     android:id="@+id/coinIcon8"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/coins"
-                    android:contentDescription="coinIcon8" />
+                    android:contentDescription="coinIcon8"
+                    android:src="@drawable/coins" />
 
                 <!-- Price Text -->
                 <TextView
                     android:id="@+id/itemPrice8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
                     android:text="@string/price"
-                    android:textColor="#FFD700"
-                    android:paddingStart="4dp" />
+                    android:textColor="#FFD700" />
             </LinearLayout>
         </LinearLayout>
 
     </GridLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

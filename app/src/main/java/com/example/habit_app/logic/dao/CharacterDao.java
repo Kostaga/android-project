@@ -227,12 +227,7 @@ public class CharacterDao extends SQLiteOpenHelper {
     }
 
 
-    // Add a character
-    public void addCharacter(Character character) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        character.insert(db);
-        db.close();
-    }
+
 
     // Update a character
     public void updateCharacter(Character character) {

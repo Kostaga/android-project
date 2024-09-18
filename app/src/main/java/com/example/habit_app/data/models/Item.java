@@ -6,24 +6,25 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Item {
 
-    public int id;
-    public String name;
-    public int price;
+    private int id;
+    private String name;
+    private int price;
 
     // Stats
-    public int STR;
-    public int DEX;
-    public int CON;
-    public int INT;
+    private int STR;
+    private int DEX;
+    private int CON;
+    private int INT;
 
     // Item state (locked/unlocked, equipped/unequipped)
-    public boolean isUnlocked;
-    public boolean isEquipped;
+    private boolean isUnlocked;
+    private boolean isEquipped;
     private int equippedSlot;
 
     public static final String TABLE_NAME = "item_table";
 
-    public Item(String name, int price, int STR, int DEX, int CON, int INT, boolean isUnlocked, boolean isEquipped, int equippedSlot) {
+    public Item(int id,String name, int price, int STR, int DEX, int CON, int INT, boolean isUnlocked, boolean isEquipped, int equippedSlot) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.STR = STR;
@@ -42,10 +43,13 @@ public class Item {
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "name TEXT,"
                 + "price INTEGER,"
-                + "imageId INTEGER,"
+                + "STR INTEGER,"
+                + "DEX INTEGER,"
+                + "CON INTEGER,"
+                + "INT INTEGER,"
                 + "isUnlocked INTEGER,"
                 + "isEquipped INTEGER,"
-                + "equippedSlot INTEGER DEFAULT 0" + ")"; // New equippedSlot field
+                + "equippedSlot INTEGER DEFAULT -1)"; // New equippedSlot field
         db.execSQL(CREATE_ITEMS_TABLE);
     }
 
@@ -69,15 +73,15 @@ public class Item {
     // Update item data in the database
     public int update(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put("name", name);
-        values.put("price", price);
-        values.put("STR", STR);
-        values.put("DEX", DEX);
-        values.put("CON", CON);
-        values.put("INT", INT);
-        values.put("isUnlocked", isUnlocked ? 1 : 0);
-        values.put("isEquipped", isEquipped ? 1 : 0);
-        values.put("equippedSlot", equippedSlot);
+        values.put("name", this.name);
+        values.put("price", this.price);
+        values.put("STR", this.STR);
+        values.put("DEX", this.DEX);
+        values.put("CON", this.CON);
+        values.put("INT", this.INT);
+        values.put("isUnlocked", this.isUnlocked ? 1 : 0);
+        values.put("isEquipped", this.isEquipped ? 1 : 0);
+        values.put("equippedSlot", this.equippedSlot);
 
         return db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(id)});
     }
@@ -97,8 +101,36 @@ public class Item {
         boolean isEquipped = cursor.getInt(cursor.getColumnIndexOrThrow("isEquipped")) == 1;
         int equippedSlot = cursor.getInt(cursor.getColumnIndexOrThrow("equippedSlot"));
 
-        return new Item(name, price, STR, DEX, CON, INT, isUnlocked, isEquipped, equippedSlot);
+        return new Item(id,name, price, STR, DEX, CON, INT, isUnlocked, isEquipped, equippedSlot);
     }
+
+
+    public static Item getItemInSlot(SQLiteDatabase db, int slot) {
+        String selection = "equippedSlot = ?";
+        String[] selectionArgs = { String.valueOf(slot) };
+
+        Cursor cursor = db.query(
+                TABLE_NAME,       // The table to query
+                null,             // Return all columns
+                selection,        // The columns for the WHERE clause
+                selectionArgs,    // The values for the WHERE clause
+                null,             // Don't group the rows
+                null,             // Don't filter by row groups
+                null              // The sort order
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Item item = Item.fromCursor(cursor);
+            cursor.close();
+            return item;
+        } else {
+            if (cursor != null) {
+                cursor.close();
+            }
+            return null;  // No item found for the specified slot
+        }
+    }
+
 
     public int getEquippedSlot() {
         return equippedSlot;
@@ -180,6 +212,8 @@ public class Item {
     public void setEquipped(boolean equipped) {
         isEquipped = equipped;
     }
+
+
 
 
 }

@@ -26,6 +26,7 @@ public class HabitDatabase extends SQLiteOpenHelper {
         habitDao = new HabitDao(context);
         characterDao = new CharacterDao(context);
         itemDao = new ItemDao(context);
+
     }
 
     public static HabitDatabase getInstance(Context context) {
@@ -36,6 +37,8 @@ public class HabitDatabase extends SQLiteOpenHelper {
                 }
             }
         }
+
+//        INSTANCE.getWritableDatabase();  // Force database initialization
         return INSTANCE;
     }
 
