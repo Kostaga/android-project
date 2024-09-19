@@ -12,10 +12,14 @@
 
 ## Showcase
 
-![image](https://github.com/user-attachments/assets/4a5d7adc-1049-4eeb-9a9d-ce660c683850)
-![image](https://github.com/user-attachments/assets/0faf6ce2-5dc6-46fc-9f04-e30a6bd17297)
-![image](https://github.com/user-attachments/assets/56bd965e-e373-464d-9729-f45d18b0618c)
-https://github.com/user-attachments/assets/f01e70fe-37da-4a5e-a96c-46cdb48e937f
+
+![Screenshot_2024-09-19-16-15-05-616_com example habit_app](https://github.com/user-attachments/assets/89939809-191e-4739-92d1-d48c8654c402)
+![Screenshot_2024-09-19-16-16-20-813_com example habit_app](https://github.com/user-attachments/assets/faa42412-31ca-4452-99fd-4328c9bc7d5d)
+![Screenshot_2024-09-19-16-17-16-839_com example habit_app](https://github.com/user-attachments/assets/1c4a24ce-1d41-4438-bb57-a1478681ff9a)
+
+
+
+
 
 
 
