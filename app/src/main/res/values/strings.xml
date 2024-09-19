@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">habit_app</string>
+    <string name="app_name">Habit Quest</string>
     <string name="username">John Doe</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -9,6 +9,19 @@
     <string name="MaximumHp">50</string>
     <string name="xp">XP:</string>
     <string name="coins">Coins:</string>
-    <string name="currentCoins">%d</string>
-    <string name="habbits">Habbits</string>
+    <string name="habbits">Habits</string>
+    <string name="title_activity_add">Add</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="level">Level %1$d</string>
+    <string name="xp_format">%d / %d XP</string>
+    <string name="hp_format">%d / %d HP</string>
+    <string name="currentCoins">Coins: </string>
+    <string name="itemsTitle">Items</string>
+    <string name="Strength">STR: +%d</string>
+    <string name="Dexterity">DEX: +%d</string>
+    <string name="Intelligence">INT: +%d</string>
+    <string name="Constitution">CON: +%d</string>
+    <string name="price">%d</string>
 </resources>

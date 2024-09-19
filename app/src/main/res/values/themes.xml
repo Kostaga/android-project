@@ -1,10 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Habit_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:windowBackground">@color/main</item>
+<resources>
+    <!-- Light Theme -->
+    <style name="Theme.HabitApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Χρησιμοποίησε σταθερά χρώματα -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/backgroundColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+
+        <!-- Χρώμα για το Bottom Navigation Bar -->
+        <item name="bottomNavigationStyle">@style/BottomNavigation</item>
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 
-    <style name="Theme.Habit_app" parent="Base.Theme.Habit_app" />
+    <!-- Στυλ για το Bottom Navigation View -->
+    <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="backgroundTint">@color/navigationBarColor</item>
+        <item name="itemRippleColor">@color/itemRippleColor</item>
+    </style>
 </resources>

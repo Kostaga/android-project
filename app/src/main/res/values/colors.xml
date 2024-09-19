@@ -2,12 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main">#272230</color>
+    <color name="main">#121117</color>
     <color name="header">#2D2837</color>
     <color name="active">#FFFFFFFF</color>
     <color name="inactive">#B1ACAC</color>
     <color name="red">#DB4C4C</color>
     <color name="yellow">#FCFF67</color>
     <color name="transparent">#004C8B3C</color>
+    <color name="attributes">#50000000</color>
 
+    <color name="backgroundColor">#272230</color>
+    <color name="primaryColor">#6200EE</color>
+    <color name="accentColor">#03DAC5</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorSecondary">#B0B0C3</color>
+    <color name="buttonColor">#FF9800</color>
+    <color name="notificationColor">#F44336</color>
+    <color name="navigationBarColor">#383450</color>
+    <color name="itemRippleColor">#B27D3AB7</color>
 </resources>

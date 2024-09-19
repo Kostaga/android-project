@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InventoryActivity"
+    android:background="@color/backgroundColor">
+
+    <!-- Include Header -->
+
+    <TextView
+        android:id="@+id/coinstext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/currentCoins"
+        android:textColor="@color/active"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/coinstext"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coins" />
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <!-- Character Avatar -->
+
+    <!-- Attributes Section -->
+
+    <!-- Equipment Title -->
+
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="132dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:srcCompat="@drawable/avatar1" />
+
+    <GridLayout
+        android:id="@+id/attributesContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/attributes_bg"
+        android:columnCount="2"
+        android:padding="15dp"
+        android:rowCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toEndOf="@+id/profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <TextView
+            android:id="@+id/attributesTitle"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_columnSpan="2"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Attributes"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Attributes: Strength, Constitution, Intelligence, Dexterity -->
+        <TextView
+            android:id="@+id/strengthAttribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/Strength"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/constitutionAttribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_marginTop="10dp"
+            android:text="@string/Constitution"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/intelligenceAttribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:text="@string/Intelligence"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/dexterityAttribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:text="@string/Dexterity"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/equipmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        android:text="Equipment"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
+
+    <GridLayout
+        android:id="@+id/equipmentGrid"
+        android:layout_width="334dp"
+        android:layout_height="76dp"
+        android:layout_margin="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/equipmentTitle">
+
+        <!-- Equipment Slot 1 (Knife) -->
+        <ImageView
+            android:id="@+id/slot1ImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/item"
+            android:contentDescription="Knife" />
+
+        <!-- Equipment Slot 2 (Shield) -->
+        <ImageView
+            android:id="@+id/slot2ImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/item"
+            android:contentDescription="Shield" />
+
+        <!-- Equipment Slot 3 (Empty) -->
+        <ImageView
+            android:id="@+id/slot3ImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/item"
+            android:contentDescription="Empty Slot" />
+
+        <ImageView
+            android:id="@+id/slot4ImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/item"
+            android:contentDescription="Empty Slot" />
+
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/itemsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="48dp"
+        android:text="Items"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/equipmentGrid" />
+
+
+    <GridLayout
+        android:id="@+id/itemsGrid"
+        android:layout_width="349dp"
+        android:layout_height="196dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="4"
+        android:rowCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemsTitle"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Item 1 (First row, first column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item1Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/swordImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item1Icon"
+                    android:src="@drawable/sword" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 2 (First row, second column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginStart="25dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item2Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/staffImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item2Icon"
+                    android:src="@drawable/staff" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon2"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon2"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 3 (First row, third column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_marginStart="25dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item3Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/bookImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item3Icon"
+                    android:src="@drawable/book" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon3"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon3"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 4 (First row, fourth column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_marginStart="25dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item4Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/armorImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item4Icon"
+                    android:src="@drawable/iron_armor" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon4"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon3"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 5 (Second row, first column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item5Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/helmetImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item5Icon"
+                    android:src="@drawable/iron_helmet" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon5"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon5"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 6 (Second row, second column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item6Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/torchImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item6Icon"
+                    android:src="@drawable/torch" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon6"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon5"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 7 (Second row, third column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item7Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/potionImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item7Icon"
+                    android:src="@drawable/large_full_flask" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon7"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon6"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Item 8 (Second row, fourth column) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp">
+
+                <!-- Background Image -->
+                <ImageView
+                    android:id="@+id/item8Background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item" />
+
+                <!-- Icon Image -->
+                <ImageView
+                    android:id="@+id/bootsImageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="item8Icon"
+                    android:src="@drawable/leather_boots" />
+            </FrameLayout>
+
+            <!-- Price and Coin Icon -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <!-- Coin Icon -->
+                <ImageView
+                    android:id="@+id/coinIcon8"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="coinIcon8"
+                    android:src="@drawable/coins" />
+
+                <!-- Price Text -->
+                <TextView
+                    android:id="@+id/itemPrice8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/price"
+                    android:textColor="#FFD700" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </GridLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="@color/header"
+        app:itemIconTint="@color/inactive"
+        app:itemTextColor="@color/inactive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
