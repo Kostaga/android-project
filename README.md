@@ -11,12 +11,12 @@
 Κάθε συνήθεια είναι σαν μια αποστολή που πρέπει να ολοκληρώσει ο χρήστης. Καθώς προχωράει και πετυχαίνει τους στόχους του, κερδίζει πόντους και επιβραβεύσεις, βλέπει την πρόοδό του και ανεβαίνει επίπεδα. Όλα αυτά έχουν σχεδιαστεί για να κάνουν τη διαδικασία επίτευξης στόχων πιο ευχάριστη και ελκυστική.
 
 ## Showcase
+![Screenshot_2024-09-19-16-15-05-616_com example habit_app](https://github.com/user-attachments/assets/383ea055-479c-483c-992a-ed2e4243ea31)
+![Screenshot_2024-09-19-16-17-16-839_com example habit_app](https://github.com/user-attachments/assets/0cc8491b-65e7-4b89-91bb-fd7ad2c8f404)
+![Screenshot_2024-09-19-16-16-20-813_com example habit_app](https://github.com/user-attachments/assets/37418b8a-c31d-4412-b38e-2d6ef9068b44)
 
 
-![Screenshot_2024-09-19-16-15-05-616_com example habit_app](https://github.com/user-attachments/assets/89939809-191e-4739-92d1-d48c8654c402)
-![Screenshot_2024-09-19-16-16-20-813_com example habit_app](https://github.com/user-attachments/assets/faa42412-31ca-4452-99fd-4328c9bc7d5d)
-![Screenshot_2024-09-19-16-17-16-839_com example habit_app](https://github.com/user-attachments/assets/1c4a24ce-1d41-4438-bb57-a1478681ff9a)
-
+https://github.com/user-attachments/assets/fc0eef6a-075c-493f-96ef-58f35b9ac286
 
 
 
